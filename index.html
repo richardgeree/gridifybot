@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GridifyBot — Decentralized AI Compute on Telegram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
-    /* Reset */
+    /* Reset and base */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
     body {
@@ -21,113 +22,133 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     a {
       color: #1ed760;
       text-decoration: none;
+      transition: color 0.25s ease;
     }
     a:hover {
+      color: #16b146;
       text-decoration: underline;
     }
     img.logo {
-      max-height: 60px;
-      margin-bottom: 1rem;
+      max-height: 120px;
+      margin-bottom: 1.5rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: none;
     }
     header {
-      padding: 3rem 1rem 5rem;
+      padding: 4rem 1rem 6rem;
       text-align: center;
       background: linear-gradient(135deg, #12151f 0%, #1f2233 100%);
       box-shadow: inset 0 -10px 20px -15px #1ed760aa;
     }
     header h1 {
-      font-weight: 900;
-      font-size: 2.8rem;
-      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 1rem;
       color: #1ed760;
-      text-shadow: 0 0 6px #1ed760aa;
+      text-shadow: 0 0 10px #1ed760aa;
+      letter-spacing: 1.1px;
     }
-    header p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      max-width: 480px;
+    header p.subtitle {
+      font-weight: 300;
+      font-size: 1.3rem;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-      color: #c0c0c0;
+      margin-bottom: 2.5rem;
+      color: #b9d8b3;
     }
     .btn-primary {
       background: #1ed760;
       border: none;
       color: #0f111a;
-      padding: 0.85rem 2.2rem;
+      padding: 1rem 2.5rem;
       font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 30px;
+      font-size: 1.15rem;
+      border-radius: 35px;
       cursor: pointer;
-      box-shadow: 0 4px 15px #1ed760bb;
-      transition: background 0.3s ease;
-      display: inline-block;
+      box-shadow: 0 6px 20px #1ed760bb;
       user-select: none;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.3px;
+      display: inline-block;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
     }
     .btn-primary:hover {
       background: #16b146;
-      box-shadow: 0 6px 20px #16b146dd;
+      box-shadow: 0 8px 28px #16b146dd;
     }
     main {
       flex-grow: 1;
       max-width: 960px;
-      margin: 2rem auto 4rem;
+      margin: 2rem auto 5rem;
       padding: 0 1rem;
     }
     section {
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
     }
     section h2 {
       color: #1ed760;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      border-left: 5px solid #1ed760;
-      padding-left: 0.5rem;
+      font-size: 2.25rem;
+      margin-bottom: 1.2rem;
+      border-left: 6px solid #1ed760;
+      padding-left: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
     }
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-      gap: 2rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2.2rem;
+      margin-top: 1.5rem;
     }
     .step {
       background: #1b1e2a;
-      padding: 1.6rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #1ed76033;
+      padding: 1.8rem 1.6rem;
+      border-radius: 14px;
+      box-shadow: 0 0 20px #1ed76033;
       transition: box-shadow 0.3s ease;
     }
     .step:hover {
-      box-shadow: 0 0 25px #1ed760aa;
+      box-shadow: 0 0 32px #1ed760aa;
     }
     .step h3 {
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.8rem;
       color: #a5fcb7;
+      font-weight: 600;
+      font-size: 1.25rem;
     }
     .step p {
-      font-size: 0.95rem;
-      color: #ccc;
+      font-size: 1rem;
+      color: #c5d7b8;
+      line-height: 1.5;
     }
     .features-list, .tokenomics-list, .devices-list {
       list-style: none;
-      padding-left: 1.25rem;
-      color: #ccc;
+      padding-left: 1.5rem;
+      color: #c5d7b8;
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.5;
     }
     .features-list li::before, .tokenomics-list li::before, .devices-list li::before {
       content: "•";
       color: #1ed760;
-      margin-right: 0.5rem;
+      margin-right: 0.75rem;
+      font-weight: 700;
     }
     footer {
       background: #12151f;
       text-align: center;
-      padding: 1.5rem 1rem;
+      padding: 1.8rem 1rem;
       font-size: 0.9rem;
       color: #666;
       border-top: 1px solid #1ed76033;
@@ -143,13 +164,13 @@
     }
     @media (max-width: 480px) {
       header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
-      header p {
-        font-size: 1rem;
+      header p.subtitle {
+        font-size: 1.1rem;
       }
       .step {
-        padding: 1.2rem;
+        padding: 1.3rem 1rem;
       }
     }
   </style>
@@ -158,8 +179,12 @@
   <header>
     <img src="/images/logo.png" alt="GridifyBot Logo" class="logo" />
     <h1>GridifyBot — Compute wherever you are. Just tap the bot.</h1>
-    <p>Decentralized AI rendering & compute powered by your device. Telegram-based. No app installs. Everyone earns.</p>
-    <a href="https://t.me/gridifybot" target="_blank" rel="noopener noreferrer" class="btn-primary">Join the Network</a>
+    <p class="subtitle">
+      Decentralized AI rendering and compute, powered by your device and accessible anywhere via Telegram app — no downloads, no hassle.
+    </p>
+    <a href="https://t.me/gridifybot" target="_blank" rel="noopener noreferrer" class="btn-primary" aria-label="Join GridifyBot Telegram Group">
+      Join the Telegram Group
+    </a>
   </header>
 
   <main>
@@ -168,15 +193,21 @@
       <div class="steps">
         <div class="step">
           <h3>1. Launch the Bot</h3>
-          <p>Open Telegram, start the GridifyBot. One tap—no setup, no download, no sweat.</p>
+          <p>
+            Simply open Telegram and start the GridifyBot. One tap, no setup or downloads needed.
+          </p>
         </div>
         <div class="step">
           <h3>2. Lend Your Device</h3>
-          <p>Your phone, laptop, or tablet becomes a decentralized compute node. CPU, GPU — whichever is idle.</p>
+          <p>
+            Turn your phone, laptop, or tablet into a decentralized compute node. Use your idle CPU or GPU power seamlessly.
+          </p>
         </div>
         <div class="step">
           <h3>3. Earn Tokens</h3>
-          <p>Hold and stake <code>$GRIDY</code> to get multipliers. Compute power = earnings.</p>
+          <p>
+            Stake and hold <code>$GRIDY</code> tokens to boost your earnings. More compute power means more rewards.
+          </p>
         </div>
       </div>
     </section>
@@ -184,10 +215,10 @@
     <section id="why-use">
       <h2>Why Use GridifyBot?</h2>
       <ul class="features-list">
-        <li>Effortless & Accessible: Zero tech knowledge—tap, run, earn.</li>
-        <li>Deploy Supports Real Work: AI labs, rendering farms, scientific projects.</li>
-        <li>Take Control: No third-party apps, no complicated wallets.</li>
-        <li>Maximize Rewards: The more tokens you stake, the more you earn.</li>
+        <li>Effortless & Accessible: No technical knowledge required — just Telegram and you’re set.</li>
+        <li>Real-World Impact: Support AI labs, rendering farms, and scientific projects worldwide.</li>
+        <li>Full Control: No third-party apps or complicated wallets—your device, your rules.</li>
+        <li>Maximize Rewards: Stake tokens to multiply your earnings with minimal effort.</li>
       </ul>
     </section>
 
@@ -196,15 +227,15 @@
       <p><strong>Token Name:</strong> <code>$GRIDY</code></p>
       <p><strong>Use Case:</strong></p>
       <ul class="tokenomics-list">
-        <li>Earn by sharing your compute power.</li>
-        <li>Stake to increase compute capacity and earnings.</li>
-        <li>Participate in governance (future feature roadmap).</li>
+        <li>Earn by sharing your device’s compute power.</li>
+        <li>Stake tokens to increase compute capacity and rewards.</li>
+        <li>Participate in governance (planned future feature).</li>
       </ul>
       <p><strong>Supply Model:</strong></p>
       <ul class="tokenomics-list">
-        <li>100M total supply</li>
-        <li>50% work-derived rewards</li>
-        <li>20% liquidity</li>
+        <li>100 million total supply</li>
+        <li>50% allocated for work-derived rewards</li>
+        <li>20% reserved for liquidity</li>
         <li>15% developer fund (locked)</li>
         <li>10% ecosystem reserve</li>
         <li>5% early adopters airdrop</li>
@@ -214,18 +245,24 @@
     <section id="supported-devices">
       <h2>Supported Devices & Uptime</h2>
       <ul class="devices-list">
-        <li>Android & iOS devices (Telegram app only)</li>
+        <li>Android & iOS devices (via Telegram app)</li>
         <li>Laptops & desktops</li>
         <li>Raspberry Pi and IoT setups</li>
       </ul>
-      <p>Bot manages everything automatically in the background—no interruptions.</p>
+      <p>
+        GridifyBot runs smoothly in the background with no interruptions, managing everything automatically.
+      </p>
     </section>
 
     <section id="join-network">
       <h2>Join the Network</h2>
-      <p>🌐 Telegram: <a href="https://t.me/gridifybot" target="_blank" rel="noopener noreferrer">t.me/gridifybot</a></p>
-      <p>💼 Wallet: <code>BNcP9Daj7SmMSjNUjadHZfczqDackgSmk2hoJqSj1VuS</code></p>
-      <p>Join now and be part of the future. GridifyBot is live on <a href="https://pump.fun" target="_blank" rel="noopener noreferrer">pump.fun</a>.</p>
+      <p>
+        Telegram: <a href="https://t.me/gridifybot" target="_blank" rel="noopener noreferrer">t.me/gridifybot</a><br />
+        Wallet: <code>Pump fun address</code>
+      </p>
+      <p>
+        Be part of the future — GridifyBot is live on <a href="https://pump.fun" target="_blank" rel="noopener noreferrer">pump.fun</a>.
+      </p>
     </section>
   </main>
 
